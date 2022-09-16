@@ -1,0 +1,72 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+
+{% block 'content'%}
+<br>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Report</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+    <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title"><b><u>Sales Report</u></b></h2>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Customer Name</th>
+                                <th>Order Id</th>
+                                <th>Date</th>
+                                <th>Product Name</th> 
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Payment status</th>
+                                <th>Deliver status</th>
+                                <th>Cancel status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in oot %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ i.cust.u_name }}</td>
+                                    <td>{{ i.order_id }}</td>
+                                    <td>{{ i.date }}</td>
+                                    <td>{{ i.product }}</td>
+                                    <td>{{ i.qty }}</td>
+                                    <td>{{ i.price }}</td>
+                                    <td>{{ i.total }}</td>
+                                    <td>{{ i.payment }}</td>
+                                    <td>{{ i.deliver }}</td>
+                                    <td>{{ i.cancel }}</td>
+                                </tr>  
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <hr>
+                    <a href="{% url 'Excels' %}" class="btn btn-info">Excel</a>
+                    <a href="{% url 'PDFs' %}" class="btn btn-info">PDF</a>
+                  </div>
+                </div>
+              </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock 'content' %}

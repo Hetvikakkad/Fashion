@@ -1,0 +1,44 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+
+{% block 'content'%}
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Feedback Form</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+    <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title"><b><u>Feedback form</u></b>></h2>
+                    <p class="card-description">Feedback Details </p>
+                    <form class="forms-sample" method="POST">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Feedback Message</label>
+                        <textarea class="form-control" name="fmess" id="exampleTextarea1" rows="2"></textarea>
+                      </div>
+                        <div class="form-group">
+                        <label for="exampleInputName1">feedback date</label>
+                        <input type="date" class="form-control" name="fdate" id="exampleInputName1" placeholder="Name">
+                      </div>
+
+                      <button type="submit" class="btn btn-success mr-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+{% endblock 'content' %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+</div>
+<br>
+<br>
+            <!-- end discount -->
+            <!-- trending -->
+            <div class="trending">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="title">
+                                <h2><u>Customer <strong class="black">Profile</strong></u></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-12">
+                                {% if user_data.profile %}
+                                <img src="{{ user_data.profile.url }}" width="200px">    
+                                {% endif %}
+                            </div>
+                            <br>
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Profile</label>
+                                        <input type="file" class="form-control" id="inputEmail4" name="profile">
+                                    </div>  
+                                </div>
+                                <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Name</label>
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{ user_data.u_name }}" name="u_name" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4" value="{{ user_data.email_id }}" name="Email" required>
+                                </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Country</label>
+                                        <input type="text" class="form-control" value="{{ user_data.country }}" id="inputEmail4" name="country" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">State</label>
+                                        <input type="text" class="form-control" id="inputPassword4" value="{{ user_data.state }}" name="state" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">City</label>
+                                        <input type="text" class="form-control" id="inputPassword4" value="{{ user_data.city }}" name="city" required>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Pincode</label>
+                                        <input type="text" class="form-control" id="inputPassword4" pattern="[0-9]{6}" value="{{ user_data.pincode }}" name="Pincode" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress" value="{{ user_data.address }}" name="address" required>
+                                    </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Contact No.</label>
+                                        <input type="text" class="form-control" pattern="[6789]{1}[0-9]{9}" value="{{ user_data.contact }}" id="inputEmail4" name="contact" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Password</label>
+                                        <input type="text" class="form-control" id="inputPassword4" title = "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern = "(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}" value="{{ user_data.password }}" name="Password" required>
+                                    </div>
+                                    </div>
+                                
+                                
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+            <!-- end trending -->
+
+            <!-- our brand -->
+            
+{% endblock home %}

@@ -1,0 +1,502 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+</div>
+      <div class="contactus">
+   <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-8 offset-md-2">
+                  <div class="title">
+                     
+                    
+                  </div>
+               </div>
+            </div>
+          </div>
+</div>
+<div class="ourproduct">
+    <div class="container">
+        <div class="row product_style_3">
+      <!-- product -->
+      <!-- end product -->
+      <!-- product -->
+      
+
+            {% if prod_data %}
+                <div class="trending">
+                    <div class="container-fluid">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="title">
+                                        <br>
+                                        <br>
+                                        <h2><u><b><i>{{ prod_data.p_name }}</u></b></i></h2><br>
+                                        
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="{{ prod_data.imgs.url }}" style="height: 400px; width: 400px;">
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h4 style="text-align: right;">Designer :</h4>
+                                        </div>
+                                        <div class="col-8">
+                                            <h4 style="text-align: left;">{{ prod_data.venders.v_name }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h4 style="text-align: right;">Price :</h4>
+                                        </div>
+                                        <div class="col-8">
+                                            <h4 style="text-align: left;">₹ {{ prod_data.p_price }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h4 style="text-align: right;">Size: </h4>
+                                        </div>
+                                        <div class="col-8">
+                                            <h4 style="text-align: left;">{{ prod_data.size_id }}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <h4 style="text-align: right;">Discription: </h4>
+                                        </div>
+                                        <div class="col-8">
+                                            <p style="text-align: left;"><b>{{ prod_data.p_discription }}</b></p>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="{% url 'Add_Wish_List' prod_data.id %}" class="btn btn-info">Add To Wishlist</a>
+                                        </div>
+                                        <div class="col-6">
+                                            {% if request.session.user_data %}
+                                                <div class="overlay_hover"> 
+                                                    <!-- <a class="add-bt" href="product_detail3.html">+ Add to cart</a>  -->
+                                                    {% if prod_data|is_in_cart:request.session.cart %}
+                                                        <div class="row no-gutters">
+                                                            <form action="{% url 'orders' %}" method="post">
+                                                                {% csrf_token %}
+                                                                <input hidden type="text" name='product' value='{{prod_data.id}}'>
+                                                                <input hidden type="text" name='remove' value='True'>
+                                                                <input type="hidden" name="porid" value="{{ prod_data.id }}">
+                                                                <input type="submit" value=" - " class="btn btn-warning">
+                                                            </form>
+                                                            <div class="text-center col">&nbsp;<h3 style="margin-top: -15%;">{{prod_data|cart_quantity:request.session.cart}}</h3>&nbsp;</div>
+                                                            <form action="{% url 'orders' %}" method="post">
+                                                                {% csrf_token %}
+                                                                <input hidden type="text" name='product' value='{{prod_data.id}}'>
+                                                                <input type="hidden" name="porid" value="{{ prod_data.id }}">
+                                                                <input type="submit" value=" + " class="btn btn-warning">
+                                                            </form>
+                                                        </div>
+                                                    {% else %}
+                                                        <form action="{% url 'orders' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="porid" value="{{ prod_data.id }}">
+                                                            <input hidden type="text" name='product' value='{{prod_data.id}}'>
+                                                            <input class="btn btn-warning" type="submit" value="Add To Cart">
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h3 style="text-align: center;">FeedBack & Rating: </h3>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="container">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <h4>Give Ratings: </h4>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <select name="prate" class="form-control">
+                                                                <option value="1" {% if keys.rating == "1" %} selected {% endif %}>1</option>
+                                                                <option value="2" {% if keys.rating == "2" %} selected {% endif %}>2</option>
+                                                                <option value="3" {% if keys.rating == "3" %} selected {% endif %}>3</option>
+                                                                <option value="4" {% if keys.rating == "4" %} selected {% endif %}>4</option>
+                                                                <option value="5" {% if keys.rating == "5" %} selected {% endif %}>5</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <h4>Feedback: </h4>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <input type="hidden" name="ids" value="{{ prod_data.id }}"/>
+                                                            <textarea name="pfeedback" class="form-control"> {{ keys.feedback }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <input type="submit" value="Submit" class="btn btn-warning">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        
+                        {% if feed %}
+                        <div class="container">
+                            <h2>Feedback Given By Users :-</h2>
+                            <br>
+                            {% for i in feed %}
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                {{ i.cust.u_name }}
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="card-text" style="text-align: right;">{{ i.date_time }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                    <h5 class="card-title">Rating : {{ i.rating }}</h5>
+                                    <p class="card-text">{{ i.feedback }}</p>
+                                    </div>
+                                </div>  
+                                <br>
+                            {% endfor %}
+                            
+                        </div>
+                        {% endif %}
+                        <br>
+                        <br> 
+                    </div>
+                </div>
+            {% endif %}
+                
+
+
+{% comment %}
+{% if prod %}
+<div class="trending">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="title">
+                    <h2><strong class="black"><br>All Products</strong></h2>
+                    
+                </div>
+            </div>
+        </div>  
+        <div class="row">
+            {% for p in prod %}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="full product">
+                    <div class="product_img">
+                        <div class="center"> <img src="{{ p.imgs.url }}" alt="#" style="height: 200px;"/>
+                            {% if request.session.user_data %}
+                                <div class="overlay_hover"> 
+                                    <!-- <a class="add-bt" href="product_detail3.html">+ Add to cart</a>  -->
+                                    {% if p|is_in_cart:request.session.cart %}
+                                        <div class="row no-gutters">
+                                            <form action="{% url 'orders' %}" method="post">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{p.id}}'>
+                                                <input hidden type="text" name='remove' value='True'>
+                                                <input type="hidden" name="idss" value="{{ p.cate.id }}">
+                                                <input type="hidden" name="jidss" value="{{ p.sub_cate.id }}">
+                                                <input type="hidden" name="oidss" value="{{ p.venders.id }}">
+                                                <input type="submit" value=" - " class="add-bt">
+                                            </form>
+                                            <div class="text-center col">&nbsp;<h3 style="margin-top: 10%;">{{p|cart_quantity:request.session.cart}}</h3>&nbsp; in Cart</div>
+                                            <form action="{% url 'orders' %}" method="post">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{p.id}}'>
+                                                <input type="hidden" name="idss" value="{{ p.cate.id }}">
+                                                <input type="hidden" name="jidss" value="{{ p.sub_cate.id }}">
+                                                <input type="hidden" name="oidss" value="{{ p.venders.id }}">
+                                                <input type="submit" value=" + " class="add-bt">
+                                            </form>
+                                        </div>
+                                    {% else %}
+                                        <form action="{% url 'orders' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idss" value="{{ p.cate.id }}">
+                                            <input type="hidden" name="jidss" value="{{ p.sub_cate.id }}">
+                                            <input type="hidden" name="oidss" value="{{ p.venders.id }}">
+                                            <input hidden type="text" name='product' value='{{p.id}}'>
+                                            <input class="add-bt" type="submit" value="+ Add To Cart">
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="product_detail text_align_center">
+                        <p class="product_descr"><u><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }}</a></u></p>
+                        <h1 class="product_price">₹ {{ p.p_price }} <span class="old_price"></span></h1>
+                        <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+                    </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>  
+    </div>
+</div>
+{% endif %}
+
+{% endcomment %}
+
+
+            {% if prod %}
+                <section class="w3l-ecommerce-main">
+                    <div class="ecom-contenthny py-5">
+                        <div class="container py-lg-6">
+                            <h3 class="hny-title mb-0 text-center">All  <span>Products</span></h3>
+                            <div class="ecom-products-grids row mt-lg-5 mt-3">
+                                {% for p in prod %}
+                                    <div class="col-lg-6 col-6 product-incfhny mt-4">
+                                        <div class="product-grid2">
+                                            <div class="product-image2">
+                                                <a href="#">
+                                                    <img class="pic-1 img-fluid" src="{{ p.imgs.url }}" style="height: 300px; width: 400px;">
+                                                    <img class="pic-2 img-fluid" src="{{ p.imgs.url }}" style="height: 300px; width: 400px;">
+                                                </a>
+                                                <ul class="social">
+                                                        <li><a href="{% url 'Add_Wish_List' p.id %}" data-tip="Add to Cart"><span class="fa fa-shopping-bag"></span></a>
+                                                        </li>
+                                                </ul>
+                                                {% if request.session.user_data %}
+                                                    {% if p|is_in_cart:request.session.cart %}
+                                                    <button class="transmitv-cart ptransmitv-cart add-to-cart">
+                                                        {{p|cart_quantity:request.session.cart}} Products In Cart
+                                                    </button>
+                                                           
+                                                    {% else %}
+                                                        <form action="{% url 'orders' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="idss" value="{{ p.cate.id }}">
+                                                            <input type="hidden" name="jidss" value="{{ p.sub_cate.id }}">
+                                                            <input type="hidden" name="oidss" value="{{ p.venders.id }}">
+                                                            <input hidden type="text" name='product' value='{{p.id}}'>
+                                                            <button type="submit" class="transmitv-cart ptransmitv-cart add-to-cart">
+                                                                Add to Cart
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="product-content">
+                                                <h3 class="title"><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }} </a></h3>
+                                                <span class="price">₹ {{ p.p_price }}</span>
+                                            </div>
+                                        </div>
+                    
+                                    </div>
+
+                                    
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+            {% if all_prod %}
+                <section class="w3l-ecommerce-main">
+                    <div class="ecom-contenthny py-5">
+                        <div class="container py-lg-6">
+                            <h3 class="hny-title mb-0 text-center">All  <span>Products</span></h3>
+                            <div class="ecom-products-grids row mt-lg-5 mt-3">
+                                {% for p in all_prod %}
+                                    <div class="col-lg-6 col-6 product-incfhny mt-4">
+                                        <div class="product-grid2">
+                                            <div class="product-image2">
+                                                <a href="#">
+                                                    <img class="pic-1 img-fluid" src="{{ p.imgs.url }}" style="height: 300px; width: 400px;">
+                                                    <img class="pic-2 img-fluid" src="{{ p.imgs.url }}" style="height: 300px; width: 400px;">
+                                                </a>
+                                                <ul class="social">
+                                                        <li><a href="{% url 'Add_Wish_List' p.id %}" data-tip="Add to Cart"><span class="fa fa-shopping-bag"></span></a>
+                                                        </li>
+                                                </ul>
+                                                {% if request.session.user_data %}
+                                                    {% if p|is_in_cart:request.session.cart %}
+                                                    <button class="transmitv-cart ptransmitv-cart add-to-cart">
+                                                        {{p|cart_quantity:request.session.cart}} Products In Cart
+                                                    </button>
+                                                           
+                                                    {% else %}
+                                                        <form action="{% url 'orders' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="ssid" value="{{ p.cate.id }}">
+                                                            <input type="hidden" name="ssjid" value="{{ p.sub_cate.id }}">
+                                                            <input hidden type="text" name='product' value='{{p.id}}'>
+                                                            <button type="submit" class="transmitv-cart ptransmitv-cart add-to-cart">
+                                                                Add to Cart
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="product-content">
+                                                <h3 class="title"><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }} </a></h3>
+                                                <span class="price">₹ {{ p.p_price }}</span>
+                                            </div>
+                                        </div>
+                    
+                                    </div>
+
+                                    
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+       
+            {% if sub_cat %}
+                <section class="w3l-post-grids-6">
+                    <!-- /post-grids-->
+                    <div class="post-6-mian py-5">
+                        <div class="container py-lg-5">
+                                <h3 class="hny-title text-center mb-0 ">{{ cat.venders.Shop_name }}'s<span>All Sub- Categories</span></h3>
+                                <p class="mb-5 text-center">Handpicked Favourites just for you</p>
+                            <div class="post-hny-grids row mt-5">
+                                
+                                {% for i in sub_cat %}
+                                <div class="col-lg-3 col-md-6 grids5-info column-img" id="zoomIn">
+                                    <a href="#">
+                                        <figure>
+                                            <img class="img-fluid" src="{{ i.Sc_image.url }}" alt="blog-image" style="height: 250px;">
+                                        </figure>
+                                    </a>
+                                    <div class="blog-thumbhny-caption">
+                            
+                                        <h4><a href="{% url 'show_prods' i.id %}">{{ i.name }}</a></h4>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+                
+            
+            {% if cats %}       
+                <section class="w3l-post-grids-6">
+                    <!-- /post-grids-->
+                    <div class="post-6-mian py-5">
+                        <div class="container ">
+                                <h3 class="hny-title text-center mb-0 ">{{ owns.Shop_name }}<span> All Categories</span></h3>
+                                <p class="mb-5 text-center">Handpicked Favourites just for you</p>
+                                <div class="post-hny-grids row mt-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h2><a href="{% url 'Chat_Data_Show' owns.id %}">Inquiry With Designer </a></h2>
+                                        </div>
+                                      </div>
+                                      &nbsp;
+                                      &nbsp;
+                                      &nbsp;
+                                      
+                                      
+                                      {% if request.session.user_data %}
+                                      {% if sb_data != "Not" %}
+                                      <div class="card">
+                                        <div class="card-body">
+                                            <a href="{% url 'unsb_data' owns.id %}" class="btn btn-dark" >UnSubscribe Designer</a>
+                                        </div>
+                                      </div>
+                                      {% else %}
+                                      <div class="card">
+                                        <div class="card-body">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="did" value="{{ owns.id }}">
+                                                <input type="submit" class="btn btn-danger" value="Subscribe Designer">
+                                            </form>
+                                        </div>
+                                      </div>
+                                      {% endif %}
+                                      {% endif %}
+                                          
+                                      
+                                    {% for i in cats %}
+                                        <div class="container">
+                                            <section class="w3l-grids-hny-2">
+                                                <!-- /content-6-section -->
+                                                <div class="grids-hny-2-mian py-5">
+                                                    <div class="container py-lg-5">
+                                                        <h3 class="hny-title mb-0 ">{{ i.c_name }}'s <span>All Sub-Categories</span></h3>
+                                                        <div class="welcome-grids row mt-5">
+                                                            {% for j in s_cat %}
+                                                                <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                                                                    <div class="boxhny13">
+                                                                            <a href="#URL">
+                                                                                
+                                                                                {% if j.Sc_image %}
+                                                                                <img src="{{ j.Sc_image.url }}" class="img-fluid" style="height: 150px; width: 150px;" alt="" />
+                                                                                {% else %}
+                                                                                <img src="{% static 'images/11.jpeg' %}" class="img-fluid" style="height: 150px; width: 150px;" alt="" />
+                                                                                {% endif %}
+                                                                            <div class="boxhny-content">
+                                                                                <h3 class="title"><a href="{% url 'show_prods' j.id i.id owns.id %}">Products</a></h3>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <h4><a href="">{{ j.name }}</a></h4>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <br>
+                <br>
+                <br>
+                <br>        
+            {% endif %}
+                
+            
+        </div>
+    </div>
+</div>
+    
+          <!--  footer --> 
+        
+     {% endblock home %}

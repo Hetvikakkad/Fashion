@@ -1,0 +1,97 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Product Form</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    
+                    {% if keys %}
+                      <h2 class="card-title"><b><u>Update Product</u></b></h2>
+                      <p class="card-description"> Update Product Details </p>
+                    {% else %}
+                    <h2 class="card-title"><b><u>Add Product</u></b></h2>
+                    <p class="card-description"> Add Product Details </p>
+                    {% endif %}
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">select Category: </label>
+                        <select class="form-control" name="cats">
+                          {% for i in cats %}
+                            <option value="{{ i.id }}" {% if i.id == keys.cate.id %}
+                              selected
+                            {% endif %}>{{ i.c_name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">select Sub Category: </label>
+                        <select class="form-control" name="scats">
+                          {% for i in prods %}
+                            <option value="{{ i.id }}" {% if i.id == keys.sub_cate.id %}
+                              selected
+                            {% endif %}>{{ i.name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Product Name</label>
+                        <input type="text" class="form-control" name="pnm" value="{{ keys.p_name }}" id="exampleInputName1" placeholder="Name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">product price</label>
+                        <input type="number" class="form-control" name="pprice" value="{{ keys.p_price }}" id="exampleInputName1" placeholder="price" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Product size</label>
+                        <input type="number" class="form-control" name="psize" value="{{ keys.size_id }}" id="exampleInputName1" placeholder="size" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">product stock</label>
+                        <input type="number" class="form-control"name="psk" value="{{ keys.stock }}" id="exampleInputName1" placeholder="stock" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Product Details</label>
+                        <textarea class="form-control" name="pdis" id="exampleTextarea1" rows="2" required>{{ keys.p_discription }}</textarea>
+                      </div>
+                      <div class="form-group">
+                        
+                        {% if keys.imgs %}
+                          <img src="{{ keys.imgs.url }}" width="200px">
+                        {% endif %}
+                        <br>  
+                        <br>
+                        <label>File upload</label>
+                        <div class="input-group col-xs-12">
+                          <input class="form-control" type="file" name="img" class="file-upload-default">
+                        </div>
+                      </div>
+                      
+                      {% if keys %}
+                        <button type="submit" class="btn btn-success mr-2">Update</button>
+                        {% else %}
+                        <button type="submit" class="btn btn-success mr-2">Add</button>
+                      {% endif %}
+                      <a href='{% url "product_form" %}' class="btn btn-light">Cancel</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+{% endblock 'content' %}

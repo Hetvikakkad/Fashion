@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+
+ <!-- contacts -->
+</div>
+ <section class="w3l-contacts-8">
+    <div class="contacts-9 section-gap py-5">
+      <div class="container py-lg-5">
+         <h3 class="hny-title mb-0 ">Contact<span> Us</span></h3>
+         <br>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 padddd">
+           <div class="map_section">
+                <div id="map">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14683.046053407552!2d72.55661633239094!3d23.069203357686906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e837dd0b01659%3A0x49145d3bc6edefea!2sNava%20Vadaj%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1619045182720!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+              </div>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 padddd">
+           <form class="main_form" method="POST">
+              {% csrf_token %} 
+              <div class="row">
+                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <input class="form-control" placeholder="Name" type="text" name="Name"><br><br>
+                 </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <input class="form-control" placeholder="Email" type="text" name="Email"><br><br>
+                 </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <input class="form-control" placeholder="Phone" type="text" name="Phone"><br><br>
+                 </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea><br><br>
+                 </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <button class="send">Send</button>
+                 </div>
+              </div>
+           </form>
+          </div> 
+       </div>
+      </div>
+    </div>
+  </section>
+  <!-- //contacts -->
+
+{% endblock home %}

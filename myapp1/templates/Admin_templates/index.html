@@ -1,0 +1,88 @@
+﻿{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Fashion Design Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <br><br>
+        <div class="container">
+            <form action="" method="GET">
+                <input type="text" name="search" class="form-control fa fa-search" placeholder="search ..">
+            </form>
+        </div>
+
+        
+
+        <br><br>
+        <div class="continer">
+            {% if pro %}
+                <h1>Products</h1>
+                <div class="trending">
+                    <div class="container-fluid">
+                        
+                        <div class="row">
+                            {% for p in pro %}
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="{{ p.imgs.url }}" alt="Card image cap">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{ p.p_name }}</h5>
+                                          <p class="card-text">₹ {{ p.p_price }}</p>
+                                          <a href="{% url 'Update_product_form' p.id %}" class="btn btn-primary">View</a>
+                                        </div>
+                                      </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <br>   
+            {% endif %}
+
+
+            <br>
+<br>
+<br>
+        <div class="container">
+            <h2>Customer's Request Orders</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>Order Id</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in prods %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'Customer_Orders_View' %}"><b>{{ i.Order_data }}</b></a></td>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+</div>
+
+{% endblock 'content' %}

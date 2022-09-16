@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+</div>
+
+<section class="w3l-grids-hny-2">
+	<!-- /content-6-section -->
+	<div class="grids-hny-2-mian py-5">
+		<div class="container py-lg-5">
+				
+			<h3 class="hny-title mb-0 text-center">Subscribed <span>Designers</span></h3>
+			<div class="welcome-grids row mt-5">
+				{% for i in prod reversed %}
+                    <div class="col-lg-2 col-md-4 col-6 welcome-image">
+                        <div class="boxhny13">
+                                <a href="#URL">
+                                        <img src="{{ i.vendors.shop_img.url }}" class="img-fluid" style="height: 150px; width: 150px;" alt="" />
+                                <div class="boxhny-content">
+                                    <h3 class="title"><a href="{% url 'Shop_View' i.vendors.id %}">Products</a></h3>
+                                </div>
+                            </a>
+                        </div>
+                        <h4>{{ i.vendors.Shop_name }}</h4>
+                    </div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+
+      <!--  footer --> 
+    
+ {% endblock home %}

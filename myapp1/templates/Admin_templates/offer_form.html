@@ -1,0 +1,32 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+
+{% block 'content'%}
+<a href="{% url 'Add_Offers' %}" class="btn btn-success">Add Offer</a>
+<br>
+<br>
+<div class="row">
+  {% for i in prods %}
+  <div class="col-3">
+    <div class="card" style="width: 18rem;">
+      
+      <div class="card-body">
+        <h5 class="card-title">{{ i.P_id.p_name }}</h5>
+        
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ i.descr }}</li>
+        <li class="list-group-item">{{ i.Start_date }}</li>
+        <li class="list-group-item">{{ i.End_date }}</li>
+        <li class="list-group-item">{{ i.stock }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'Update_Offers' i.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'Delete_Offers' i.id %}" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock 'content' %}
+

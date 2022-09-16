@@ -1,0 +1,93 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+
+{% block 'content'%}
+<br>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+    <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h2 class="card-title"><b><u>vendor form</u></b></h2>
+                    <p class="card-description"> Vendor Details </p>
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Profile Pic :</label>
+                        <br>
+                        <br>
+                        {% if vdata.profile %}
+                          <img src="{{ vdata.profile.url }}" width="200px"/>
+                        {% endif %}
+                        <input type="file" accept="image/png, image/jpeg" class="form-control" name="vimg" id="exampleInputName1">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" name="vnm" value="{{ vdata.v_name }}" id="exampleInputName1" placeholder="Name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Email address</label>
+                        <input type="email" class="form-control" name="vem" value="{{ vdata.email_id }}" id="exampleInputEmail3" placeholder="Email" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Contact</label>
+                        <input type="text" class="form-control" name="vcon" value="{{ vdata.contact }}" id="exampleInputName1" pattern="[6789]{1}[0-9]{9}" placeholder="contact" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Shop Picture :</label>
+                        <br>
+                        <br>
+                        {% if vdata.shop_img %}
+                          <img src="{{ vdata.shop_img.url }}" width="200px"/>
+                        {% endif %}
+                        <input type="file" accept="image/png, image/jpeg" class="form-control" name="shimg" id="exampleInputName1">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Shop Name</label>
+                        <input type="text" class="form-control" name="shnm" value="{{ vdata.Shop_name }}" id="exampleInputName1" placeholder="Shop Name" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Shop Email address</label>
+                        <input type="email" class="form-control" name="shem" value="{{ vdata.shop_contact_em }}" id="exampleInputEmail3" placeholder="Shop Email" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Shop Contact</label>
+                        <input type="text" class="form-control" name="shcon" value="{{ vdata.shop_contact_no }}" id="exampleInputName1" pattern="[6789]{1}[0-9]{9}" placeholder="Shop Contact" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Shop Address</label>
+                        <textarea class="form-control" name="shadd" id="exampleInputName1" required>{{ vdata.shop_address }}</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4">Password</label>
+                        <input type="text" class="form-control" title = "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern = "(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}" name="vpass" value="{{ vdata.password }}" id="exampleInputPassword4" placeholder="Password" required>
+                      </div>
+                      
+
+                      <button type="submit" class="btn btn-success mr-2">Update</button>
+                      <a href="{% url 'Vender_Dashboard' %}" class="btn btn-light">Cancel</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock 'content' %}

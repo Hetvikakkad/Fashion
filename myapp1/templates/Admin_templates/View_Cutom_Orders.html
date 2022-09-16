@@ -1,0 +1,36 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+
+
+
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>No.</th>
+                <th>Order Id</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in prod %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    
+                    {% if i.status == "Cancel" %}
+                    <td><b>{{ i.Order_data }}</b></td>
+                    {% else %}
+                    <td><a href="{% url 'view_custom_data' i.id %}"><b>{{ i.Order_data }}</b></a></td>
+                    {% endif %}
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock 'content' %}

@@ -1,0 +1,62 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+
+</div>
+<div class="container">
+    <br>
+    <br>
+    <h2><strong><u><i> Shop Owner : {{ moch.vendors.Shop_name }} </i></u></strong></h2><br><br>
+    
+    {% if mc %}
+    <div style="height: 500px; width: 100%; overflow: scroll;">
+        {% for i in mc %}
+            <div class="row">
+                {% if i.usersData %}
+                    <div class="card col-6" style="width: 15rem;">
+                        <div class="card-body">
+                            <p><b><u>: {{ i.usersData.u_name }}</u></b></p>
+                            <h3 class="card-text">{{ i.problem_text }}</h3>
+                            <p style="text-align: right;">{{ i.date_time }}</p>
+                        </div>
+                    </div>
+                {% endif %}      
+            </div>
+            <div class="row">
+                {% if i.vendors %}
+                    <div class="col-6" style="width: 15rem;">
+                    </div>
+                    <div class="card col-6" style="width: 15rem;">
+                        <div class="card-body">
+                            <p><b><u>: {{ i.vendors }}</u></b></p>
+                            <h3 class="card-text">{{ i.problem_text }}</h3>
+                            <p style="text-align: right;">{{ i.date_time }}</p>
+                        </div>
+                    </div>
+                {% endif %}  
+            </div>
+        {% endfor %}  
+    </div>
+    {% endif %}
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Add Text</label>
+                    <textarea class="form-control" name="ptext" id="exampleTextarea1" rows="2"></textarea>
+                  </div>
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock 'content' %}

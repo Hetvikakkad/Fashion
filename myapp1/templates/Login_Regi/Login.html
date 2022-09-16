@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'login/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'login/css/reg_style.css' %}">
+</head>
+
+<body>
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
+                        
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Login</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="your_email" placeholder="Your Email Address" />
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" title = "Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" pattern = "(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}" value="{{ user_data.password }}" id="password" placeholder="Password" />
+                            </div>
+                            <a href="{% url 'forgotpass' %}" class="txt2 bo1 m-l-5">
+                                Forgot?
+                            </a>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                            <div class="w-full text-center p-t-55">
+                                <span class="txt2">
+                                    Not a member?
+                                </span>
+            
+                                <a href="{% url 'register' %}" class="txt2 bo1">
+                                    Sign up now
+                                </a>
+                                <br>
+                                <a href="{% url 'ved_login' %}" class="txt2 bo1">
+                                    Sign up as Designer
+                                </a>
+                            </div>
+                        </div>
+                        </form>
+                        {% if messages %}
+					{% for message in messages %}
+						<script>
+							myFunction()
+							function myFunction() {
+							  alert("{{ message }}");
+							}
+							</script>
+					{% endfor %}
+				{% endif %}
+                    </div>
+                </div>
+               
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'login/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'login/js/reg_main.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                      <label for="inputEmail4">Customer Name</label>
+                      <input type="text" class="form-control" disabled value="{{ prod.U_id.u_name }}">
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputEmail4">Customer Email</label>
+                    <input type="text" class="form-control" disabled value="{{ prod.U_id.email_id }}">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputEmail4">Customer Contact No</label>
+                    <input type="text" class="form-control" disabled value="{{ prod.U_id.contact }}">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputEmail4">Customer Address</label>
+                    <textarea disabled class="form-control">{{ prod.U_id.address }},{{ prod.U_id.city }}, 
+{{ prod.U_id.state }}, {{ prod.U_id.country }}, 
+{{ prod.U_id.pincode }}.</textarea>
+                </div>
+              </div>
+              
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputEmail4">Categories</label>
+                        <input type="text" class="form-control" disabled value="{{ prod.cate.c_name }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputEmail4">Sub-Categories</label>
+                        <input type="text" class="form-control" disabled value="{{ prod.sub_cate.name }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Describe Your Requirement</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ndetail" disabled>{{ prod.details }}</textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  {% if prod.docs %}
+                    <div class="form-group col-md-12">
+                        <label for="inputPassword4">Requirement Document</label>
+                        <object data="{{ prod.docs.url }}" type="application/pdf" width="150" height="200">
+                            <a target="_blank" href="{{ prod.docs.url }}">File</a>
+                        </object>
+                    </div>    
+                  {% endif %}
+                </div>    
+                
+                {% if prod.status == "Pay" and prod.pay == True %}
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <h1>Payment Done</h1>
+                    </div>
+                  </div>
+                {% else %}
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Accept Requirement</label>
+                    <input type="checkbox" name="ncheck" {% if prod.status == "Accept" %} checked {% endif %}>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="inputEmail4">Requirement Amount</label>
+                    <input type="text" name="namount" class="form-control" value="{{ prod.price }}"> 
+                  </div>
+                </div>
+              <button type="submit" class="btn btn-warning">Ok</button> <a href="{% url 'Vender_Dashboard' %}" class="btn btn-dark">Cancel</a>
+                {% endif %}
+              </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock 'content' %}

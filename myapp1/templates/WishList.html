@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+</div>
+
+<section class="w3l-ecommerce-main">
+  <div class="ecom-contenthny py-5">
+      <div class="container py-lg-6">
+          <h3 class="hny-title mb-0 text-center">Wish<span>List</span></h3>
+          <div class="ecom-products-grids row mt-lg-5 mt-3">
+              {% for p in prod %}
+                  <div class="col-lg-3 col-6 product-incfhny mt-4">
+                      <div class="product-grid2">
+                          <div class="product-image2">
+                              <a href="#">
+                                  <img class="pic-1 img-fluid" src="{{ p.P_id.imgs.url }}" style="height: 300px; width: 300px;">
+                                  <img class="pic-2 img-fluid" src="{{ p.P_id.imgs.url }}" style="height: 300px; width: 300px;">
+                              </a>
+                              <ul class="social">
+                                <li><a href="{% url 'remove_wishlist' p.id %}" data-tip="Add to Cart"><span class="fa fa-thumbs-down"></span></a>
+                                </li>
+                            </ul>
+                              {% if request.session.user_data %}
+                                  {% if p.P_id|is_in_cart:request.session.cart %}
+                                  <button class="transmitv-cart ptransmitv-cart add-to-cart">
+                                      {{p.P_id|cart_quantity:request.session.cart}} Products In Cart
+                                  </button>
+                                  {% endif %}
+                              {% endif %}
+                          </div>
+                          <div class="product-content">
+                              <h3 class="title"><a href="{% url 'Show_Product' p.P_id.id %}">{{ p.P_id.p_name }} </a></h3>
+                              <span class="price"><u><h3>₹ {{ p.P_id.p_price }}</h3></u></span>
+                          </div>
+                      </div>
+  
+                  </div>
+
+                  
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+</section>
+
+
+      <!--  footer --> 
+    
+ {% endblock home %}
+
+
+
+ <section class="w3l-ecommerce-main">
+  <div class="ecom-contenthny py-5">
+      <div class="container py-lg-6">
+          <h3 class="hny-title mb-0 text-center">Wish<span>List</span></h3>
+          <div class="ecom-products-grids row mt-lg-5 mt-3">
+              {% for p in prod %}
+                  <div class="col-lg-3 col-6 product-incfhny mt-4">
+                      <div class="product-grid2">
+                          <div class="product-image2">
+                              <a href="#">
+                                  <img class="pic-1 img-fluid" src="{{ p.P_id.imgs.url }}" style="height: 300px; width: 300px;">
+                                  <img class="pic-2 img-fluid" src="{{ p.P_id.imgs.url }}" style="height: 300px; width: 300px;">
+                              </a>
+                              <ul class="social">
+                                      <li><a href="{% url 'Add_Wish_List' p.id %}" data-tip="Add to Cart"><span class="fa fa-shopping-bag"></span></a>
+                                      </li>
+                              </ul>
+                              {% if request.session.user_data %}
+                                  {% if p|is_in_cart:request.session.cart %}
+                                  <button class="transmitv-cart ptransmitv-cart add-to-cart">
+                                      {{p|cart_quantity:request.session.cart}} Products In Cart
+                                  </button>
+                                         
+                                  {% else %}
+                                      <form action="{% url 'orders' %}" method="POST">
+                                          {% csrf_token %}
+                                          <input type="hidden" name="idss_data" value="ids_data">
+                                          <input hidden type="text" name='product' value='{{p.id}}'>
+                                          <button type="submit" class="transmitv-cart ptransmitv-cart add-to-cart">
+                                              Add to Cart
+                                          </button>
+                                      </form>
+                                  {% endif %}
+                              {% endif %}
+                          </div>
+                          <div class="product-content">
+                              <h3 class="title"><a href="{% url 'Show_Product' p.P_id.id %}">{{ p.P_id.p_name }} </a></h3>
+                              <span class="price">₹ {{ p.P_id.p_price }}</span>
+                          </div>
+                      </div>
+  
+                  </div>
+
+                  
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+<div class="contactus">
+  <div class="container-fluid">
+           <div class="row">
+              <div class="col-md-8 offset-md-2">
+                 <div class="title">
+                    <h2>WishList</h2>
+                   
+                 </div>
+              </div>
+           </div>
+         </div>
+</div>
+<div class="ourproduct">
+ <div class="container">
+    <div class="row product_style_3">
+     <!-- product -->
+     <!-- end product -->
+     <!-- product -->
+     
+     {% for p in prod %}
+         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+             <div class="full product">
+             <div class="product_img">
+                 <div class="center"> <img src="{{ p.P_id.imgs.url }}" style="height: 500px; width: 400px;" alt="#"/>
+                 </div>
+             </div>
+             <div class="product_detail text_align_center">
+                 <h3 class="product_descr"><u><a href="{% url 'Show_Product' p.P_id.id %}">{{ p.P_id.p_name }}</a></u></h3>
+                 <p class="product_price">₹ {{ p.P_id.p_price }} <span class="old_price"></span></p>
+                 <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+             </div>
+             </div>
+         </div>
+     {% endfor %}
+     <!-- end product -->
+   </div>
+ </div>
+</div>

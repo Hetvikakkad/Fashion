@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+{% load custom_filter %}
+<br>
+</div>
+</div>
+<div class="container">
+   <div  class="grids-hny-2-mian py-5">
+        <p class="display-4 pl-4 ml-4">Cart</p>
+        <hr>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for product in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" src="{{product.imgs.url}}" alt=""></td>
+                    <td>{{product.p_name}}</td>
+                    <td>{{product.p_price|currency}}</td>
+                    
+                    <td> 
+                    {% comment %}
+                        {{product|cart_quantity:request.session.cart}}
+                    {% endcomment %}
+
+
+                            {% if product|is_in_cart:request.session.cart %}
+                            <div class="row no-gutters">
+                                <form action="{% url 'orders' %}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='product' value='{{product.id}}'>
+                                    <input hidden type="text" name='remove' value='True'>
+                                    <input type="hidden" name="pay_data" value="pay_data">
+                                    <input type="submit" value=" - " class="btn"> 
+                                </form>
+                                <div class="text-center col"><p style="margin-top: 10%;"><b>{{product|cart_quantity:request.session.cart}}</b></p></div>
+                                <form action="{% url 'orders' %}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='product' value='{{product.id}}'>
+                                    <input type="hidden" name="pay_data" value="pay_data">
+                                    <input type="submit" value=" + " class="btn">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="{% url 'orders' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="pay_data" value="pay_data">
+                                <input hidden type="text" name='product' value='{{product.id}}'>
+                                <input class="btn" type="submit" value="+ Add To Cart">
+                            </form>
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <td>{{product|price_total:request.session.cart|currency}}</td>
+                </tr>
+
+                {% endfor %}
+               
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th class="" colspan="">Total</th>
+                    <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr>
+        <hr>
+        <h2>Address For Delivery</h2>
+        <br>
+        <form method="POST" class="form-group"> 
+            {% csrf_token %}
+            <label>Street Address :</label>
+            <input class="form-control" type="text" name="sa" required><br>
+            <label>Address 2 :</label>
+            <input class="form-control" type="text" name="add" required><br>
+            <label>City :</label>
+            <input class="form-control" type="text" name="city" required><br>
+            <label>State :</label>
+            <input  class="form-control" type="text" name="state" required><br>
+            <label>Postal/Zip Code :</label>
+            <input  class="form-control" type="text" name="zip" pattern="[0-9]{6}" required><br>
+        
+        
+                <input type="hidden" name="total_price" value="{{products|total_cart_price:request.session.cart}}">
+                <input class="btn btn-outline-info border rounded  col-lg-3 float-right" type="submit" name="submit" value="Online Payment">
+                <br>
+                
+        </form>
+            
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-12" style="text-align: right;">
+                <h4>If You Want To Do <a href="{% url 'COD' %}">Cash On Delivery</a></h4>
+            </div>
+        </div>
+        </div>
+   </div>
+</div>
+<br>
+
+{% endblock home %}

@@ -1,0 +1,76 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+
+{% block 'content'%}
+<br>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Sub-Category Form</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+    <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    
+                    {% if keys %}
+                      <h2 class="card-title"><b><u>Update Subcategory</u></b></h2>
+                      <p class="card-description">Update Subcategory details </p>
+                    {% else %}
+                    <h2 class="card-title"><b><u>Add Subcategory</u></b></h2>
+                    <p class="card-description">Add Subcategory details </p>
+                    {% endif %}
+
+                    <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      
+                      <div class="form-group">
+                        <label for="exampleInputName1">Select Category Name</label>
+                        <select class="form-control" name="mcat">
+                          {% for i in cats %}
+                            <option value="{{ i.id }}" {% ifequal keys.C_id.id i.id %} selected {% endifequal %}>{{ i.c_name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="exampleInputName1">Subcategory Name</label>
+                        <input type="text" class="form-control" name="snm" value="{{ keys.name }}" id="exampleInputName1" placeholder="Name">
+                      </div>
+
+                      <div class="form-group">
+                        
+                        {% if keys.Sc_image %}
+                            <img src="{{ keys.Sc_image.url }}" width="200px">
+                        {% endif %}
+                          <br>
+                          <br>
+                        <label>Subcategory image</label>
+                        <input type="file" class="form-control" name="img" class="file-upload-default">
+                      </div>
+
+                      
+                      {% if keys %}
+                        <button type="submit" class="btn btn-success mr-2">Update</button>
+                      {% else %}
+                        <button type="submit" class="btn btn-success mr-2">Add</button>
+                      {% endif %}
+                        
+                      <a href='{% url "sub_category_form" %}' class="btn btn-light">Cancel</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+{% endblock 'content' %}

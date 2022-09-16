@@ -1,0 +1,45 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+<br>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Category</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+<a href="{% url 'add_cate' %}" class="btn btn-success">Add Category</a>
+<br>
+<br>
+
+  <div class="row">
+    {% for i in prods %}
+    <div class="col-3">
+      <div class="card" style="width: 18rem;">
+        {% if i.c_image %}
+          <img class="card-img-top" src="{{ i.c_image.url }}" alt="Card image cap">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title"><a href="{% url 'vend_sub_category_form' i.id %}">{{ i.c_name }}</a></h5>
+          <a href="{% url 'update_cate' i.id %}" class="btn btn-primary">Update</a>
+          <a href="{% url 'delete_cate' i.id %}" class="btn btn-primary">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+
+{% endblock 'content' %}

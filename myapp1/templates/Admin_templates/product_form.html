@@ -1,0 +1,89 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+
+<br>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Products</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<br>
+
+<a href="{% url 'Add_product_form' %}" class="btn btn-success">Add Product</a>
+<br>
+<br>
+
+{% if prods %}
+<div class="row">
+  {% for i in prods %}
+  <div class="col-sm-3 col-xl-3 col-xs-4">
+    <div class="card" style="width: 17rem;">
+      {% if i.imgs %}
+        <img class="card-img-top" src="{{ i.imgs.url }}" style="height: 250px;" alt="Card image cap">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ i.p_name }}</h5>
+        
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price : {{ i.p_price }}</li>
+        <li class="list-group-item">Size : {{ i.size_id }}</li>
+        <li class="list-group-item">Stock : {{ i.stock }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'Update_product_form' i.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'Delete_product_form' i.id %}" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+  
+
+{% if venprods %}
+<div class="row">
+  {% for i in venprods %}
+  <div class="col-3">
+    <div class="card" style="width: 18rem;">
+      {% if i.imgs %}
+        <img class="card-img-top" src="{{ i.imgs.url }}" alt="Card image cap">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ i.p_name }}</h5>
+        
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ i.p_discription }}</li>
+        <li class="list-group-item">Price : {{ i.p_price }}</li>
+        <li class="list-group-item">Size : {{ i.size_id }}</li>
+        <li class="list-group-item">Stock : {{ i.stock }}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'Update_product_form' i.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'Delete_product_form' i.id %}" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+  
+
+
+
+
+
+{% endblock 'content' %}

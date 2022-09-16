@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+
+</div>
+
+<section class="w3l-post-grids-6">
+    <!-- /post-grids-->
+    <div class="post-6-mian py-5">
+        <div class="container ">
+            <h3 class="hny-title text-center mb-0 ">Custome<span> Order</span></h3>
+            <p class="mb-5 text-center">Handpicked Favourites just for you</p>
+            <div class="post-hny-grids row mt-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">Select Designer</label>
+                                    <select name="nvend" class="form-control">
+                                        {% for i in vend %}
+                                            <option value="{{ i.id }}">{{ i.Shop_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">Categories</label>
+                                    <select name="ncat" class="form-control">
+                                        {% for i in nav_cat %}
+                                            <option value="{{ i.id }}">{{ i.c_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">Sub-Categories</label>
+                                    <select name="nscat" class="form-control">
+                                        {% for i in nav_scat %}
+                                            <option value="{{ i.id }}">{{ i.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <label for="inputEmail4">Describe Your Requirement</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ndetail" required></textarea>
+                              </div>
+                              <div class="form-group col-md-12">
+                                <label for="inputPassword4">Upload Requirement Document</label>
+                                <input type="file" class="form-control" name="ndocs">
+                              </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Submit</button> <a href="#" class="btn btn-dark">Cancel</a>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% if prod %}
+<section class="w3l-post-grids-6">
+    <!-- /post-grids-->
+    <div class="post-6-mian py-5">
+        <div class="container ">
+                <h3 class="hny-title text-center mb-0 ">Orders<span></span></h3>
+                <div class="post-hny-grids row">
+                    
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>No.</th>
+                                <th>Categorie</th>
+                                <th>Sub-Categorie</th>
+                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in prod %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ i.cate.c_name }}</td>
+                                    <td>{{ i.sub_cate.name }}</td>
+                                    <td>{{ i.details }}</td>
+                                    <td>{{ i.status }}</td>
+                                    <td>
+                                        
+                                        {% if i.price %}
+                                            {{ i.price }}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                            
+                                    </td>
+                                    <td>
+                                        {% if i.status == "Accept" %}
+                                            <a href="{% url 'cust_check' i.id %}" class="btn btn-success">Pay</a> &nbsp; <a href="{% url 'cancel_Custorder' i.id %}" class="btn btn-danger">Cancel</a>
+                                        {% endif %}
+                                    </td>
+                                    
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        
+            </div>
+        </div>
+    </div>
+</section>    
+{% endif %}
+    
+
+
+
+
+{% endblock home %}

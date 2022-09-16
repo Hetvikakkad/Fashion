@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+
+<br>
+</div>
+
+<section class="w3l-post-grids-6">
+   <!-- /post-grids-->
+   <div class="post-6-mian py-5">
+      <div class="container ">
+         <h3 class="hny-title text-center mb-0 ">All<span> Order Bills</span></h3>
+         <div class="post-hny-grids row mt-12">
+            <div class="card">
+               {% for i in oids reversed %}
+                  <div class="card-body">
+                     <h2><a href="{% url 'View_specific' i %}">{{ i }} </a></h2>
+                  </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+
+{% endblock home %}
+

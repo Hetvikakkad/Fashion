@@ -1,0 +1,13 @@
+<html>
+    <body>
+<h1> Payment SuccessFully Complate </h1>
+
+<form action="{% url 'emailcall' %}" method="POST" name="emailcall">
+    {% csrf_token %}
+
+</form>
+</body>
+<script>
+    document.emailcall.submit()
+</script>
+</html>

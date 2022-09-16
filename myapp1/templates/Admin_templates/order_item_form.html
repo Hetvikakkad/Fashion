@@ -1,0 +1,31 @@
+{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+      <div class="page-header">
+          <h2 class="pageheader-title">Fashion Design Dashboard </h2>
+          <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+          <div class="page-breadcrumb">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Order Items</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <br>
+      {% for i in oids reversed %}
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title"><b><a href="{% url 'VenderView_specific' i %}">{{ i }}</a></b></h2>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+{% endblock 'content' %}

@@ -1,0 +1,181 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+ 
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'Admin_Css/assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/charts/chartist-bundle/chartist.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/charts/morris-bundle/morris.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/charts/c3charts/c3.css' %}">
+    <link rel="stylesheet" href="{% static 'Admin_Css/assets/vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+    <title>Online Fashion Design Admin Panel</title>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+    <div class="dashboard-main-wrapper">
+        <!-- ============================================================== -->
+        <!-- navbar -->
+        <!-- ============================================================== -->
+        <div class="dashboard-header">
+            <nav class="navbar navbar-expand-lg bg-white fixed-top">
+                <a class="navbar-brand" href="{% url 'Vender_Dashboard'%}">Designer's Panel</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto navbar-right-top">
+                        <li class="nav-item">
+                            <div id="custom-search" class="top-search-bar">
+                                <input class="form-control" type="text" placeholder="Search..">
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                
+                                {% if vdata.profile %}
+                                    <img src="{{ vdata.profile.url }}" alt="" class="user-avatar-md rounded-circle"></a>
+                                {% else %}
+                                    <img src="{% static 'Admin_Css/assets/images/avatar-1.jpg' %}" alt="" class="user-avatar-md rounded-circle"></a>
+                                {% endif %}
+                                
+
+                            <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                <div class="nav-user-info">
+                                    <h5 class="mb-0 text-white nav-user-name">
+                                    
+                                        {% if vdata.Shop_name != "" %}
+                                            {{ vdata.Shop_name }}    
+                                        {% else %}
+                                            {{ vdata.v_name }}    
+                                        {% endif %}
+                                    
+                                    </h5>
+                                    <span class="status"></span><span class="ml-2">
+                                    
+                                        {% if shop_contact_em != "" %}
+                                            {{ vdata.shop_contact_em }}
+                                        {% else %}
+                                            {{ vdata.email_id }}
+                                        {% endif %}
+                                    
+                                    
+                                    </span>
+                                </div>
+                                <a class="dropdown-item" href="{% url 'vendor_form' %}"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="{% url 'vender_logout' %}"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end navbar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+        <div class="nav-left-sidebar sidebar-dark">
+            <div class="menu-list">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="d-xl-none d-lg-none" href="{% url 'Vender_Dashboard'%}">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav flex-column">
+                            <li class="nav-divider">
+                                <a class="nav-link" href="{% url 'Vender_Dashboard'%}">Deshboard</a>
+                                <a class="nav-link" href="{% url 'product_form'%}">Product</a>
+                                <a class="nav-link" href="{% url 'Owner_Chats' %}">Chats</a>
+                                <a class="nav-link" href="{% url 'Customer_Orders_View' %}">Custome Orders</a>
+                                <a class="nav-link" href="{% url 'order_item_form'%}">Order item</a>
+                                <a class="nav-link" href="{% url 'Report_Data' %}">Report</a>
+                                <a class="nav-link" href="{% url 'feedback_form'%}">FeedBack</a>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="dashboard-ecommerce">
+                <div class="container-fluid dashboard-content ">
+                    <!-- ============================================================== -->
+                    <!-- pageheader  -->
+                    <!-- ============================================================== -->
+                    
+                    <!-- ============================================================== -->
+                    <!-- end pageheader  -->
+                    <!-- ============================================================== -->
+                    <div class="ecommerce-widget">
+                        {% block 'content'%}
+                        {% endblock 'content' %}
+                        {% block home %}
+                        {% endblock home %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            
+            <!-- ============================================================== -->
+            <!-- end footer -->
+            <!-- ============================================================== -->
+            
+        </div>
+        <!-- ============================================================== -->
+
+        <!-- end wrapper  -->
+        <!-- ============================================================== -->
+        
+    </div>
+    
+    <!-- ============================================================== -->
+    <!-- end main wrapper  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <!-- jquery 3.3.1 -->
+    <script src="{% static 'Admin_Css/assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <!-- bootstap bundle js -->
+    <script src="{% static 'Admin_Css/assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+    <!-- slimscroll js -->
+    <script src="{% static 'Admin_Css/assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'Admin_Css/assets/libs/js/main-js.js"></script>
+    <!-- chart chartist js -->
+    <script src="{% static 'Admin_Css/assets/vendor/charts/chartist-bundle/chartist.min.js' %}"></script>
+    <!-- sparkline js -->
+    <script src="{% static 'Admin_Css/assets/vendor/charts/sparkline/jquery.sparkline.js' %}"></script>
+    <!-- morris js -->
+    <script src="{% static 'Admin_Css/assets/vendor/charts/morris-bundle/raphael.min.js' %}"></script>
+    <script src="{% static 'Admin_Css/assets/vendor/charts/morris-bundle/morris.js' %}"></script>
+    <!-- chart c3 js -->
+    <script src="{% static 'Admin_Css/assets/vendor/charts/c3charts/c3.min.js' %}"></script>
+    <script src="{% static 'Admin_Css/assets/vendor/charts/c3charts/d3-5.4.0.min.js' %}"></script>
+    <script src="{% static 'Admin_Css/assets/vendor/charts/c3charts/C3chartjs.js' %}"></script>
+    <script src="{% static 'Admin_Css/assets/libs/js/dashboard-ecommerce.js' %}"></script>
+</body>
+ 
+</html>

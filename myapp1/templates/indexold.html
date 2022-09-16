@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+<section class="slider_section">
+                <div class="banner_main">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mapimg">
+                                <div class="text-bg">
+                                    <h1>The latest <br> <strong class="black_bold">Fashion Design</strong><br></h1>
+                                    <a href="#">Shop Now <i class='fa fa-angle-right'></i></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="text-img">
+                                    <figure><img src="{% static 'images/bg.jpg'%}" /></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- discount -->
+            <div class="container">
+                <br><br><br><br><br>
+                    <div class="container">
+                        <form action="" method="GET">
+                            <input type="text" name="search" class="form-control fa fa-search" placeholder="search ..">
+                        </form>
+                    </div>
+
+                    <br><br>
+                    <div class="continer">
+                        
+                        {% if pro %}
+                            <h1>Data product</h1>
+                            
+                                <li>
+                            <div class="trending">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-8 offset-md-2">
+                                            <div class="title">
+                                                <h2><strong class="black"><br>Products</strong></h2>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        {% for p in pro %}
+                                        <h1>prooo</h1>
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                                <div class="full product">
+                                                <div class="product_img">
+                                                    <div class="center"> <img src="{{ p.imgs.url }}" alt="#"/>
+                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="product_detail text_align_center">
+                                                    <h3 class="product_descr"><u><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }}</a></u></h3>
+                                                    <p class="product_price">${{ p.p_price }} <span class="old_price"></span></p>
+                                                    <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                                </li>
+                            
+                            <br><br><br><hr>    
+                        {% endif %}
+
+                        {% if des %}
+                            <h1>Vender</h1>
+                            <div class="row">
+                                {% for dealer in des %}
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-10 margitop">
+                                        <div class="trending-box">
+                                            <figure><img src="{{ dealer.shop_img.url }}" /></figure>
+                                            <a href="{% url 'Shop_View' dealer.id %}"><h3>{{ dealer.Shop_name }}</h3></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+            </div>
+            <!-- end discount -->
+            <!-- trending -->
+            <div class="trending">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="title">
+                                <h2>Trending <strong class="black">Shops</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for i in owns %}
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-10 margitop">
+                                <div class="trending-box">
+                                    <figure><img src="{{ i.shop_img.url }}" /></figure>
+                                    <a href="{% url 'Shop_View' i.id %}"><h3>{{ i.Shop_name }}</h3></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+            <!-- end trending -->
+
+            <!-- our brand -->
+            <div class="brand">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title">
+                                <h2>Featured <strong class="black">Brands</strong></h2>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="brand-bg">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
+                            <div class="brand-box">
+                                <i><img src="{% static 'icon/p1.png'%}"/></i>
+                                <h3>Jane Lauren Design Chair</h3>
+                                <span>$80.00</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 margintop">
+                            <div class="brand-box">
+                                <i><img src="{% static 'icon/p2.png'%}"/></i>
+                                <h3>Jane Lauren Design Chair</h3>
+                                <span>$80.00</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                            <div class="brand-box">
+                                <i><img src="{% static 'icon/p3.png'%}"/></i>
+                                <h3>Jane Lauren Design Chair</h3>
+                                <span>$80.00</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                            <div class="brand-box">
+                                <i><img src="{% static 'icon/p4.png'%}"/></i>
+                                <h3>Jane Lauren Design Chair</h3>
+                                <span>$80.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock home %}
